@@ -82,12 +82,12 @@ public class Game {
 //        gameStage.initModality(Modality.APPLICATION_MODAL);
         switch (difficulty) {
             case "Easy":
-                cardWidth = 200;
-                cardHeight = 200;
-                break;
-            case "Medium":
                 cardWidth = 150;
                 cardHeight = 150;
+                break;
+            case "Medium":
+                cardWidth = 140;
+                cardHeight = 140;
                 break;
             case "Hard":
                 cardWidth = 100;
