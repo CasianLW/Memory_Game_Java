@@ -23,7 +23,8 @@ Le jeu se trouve dans le dossier 'memory_game', télécharger ce fichier et 'run
 3. Créer les classes les plus simples 'Players' , 'Scoreboard' et 'Card'
 4. La partie Game qui nécessite le plus de temps car beaucoup de logique et tests nécessaires
 5. Gestion des erreurs et corrections bugs (animation, double flip, etc)
-   (plus de details dans les commits j'ai été assez verbose)
+   
+(plus de details dans les commits j'ai été assez verbose)
 
 
 [![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/IY5vZRPk)
