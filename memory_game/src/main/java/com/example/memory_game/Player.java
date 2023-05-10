@@ -1,3 +1,5 @@
+package com.example.memory_game;
+
 public class Player {
 
     private String name;
