@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="javafxControls">
+    <CLASSES />
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/../../../../../../Program Files/javafx-sdk-20.0.1/javafx.controls" />
+    </SOURCES>
+  </library>
+</component>
