@@ -41,6 +41,9 @@ public class Game {
 
     private Label currentPlayerLabel;
 
+    private boolean isWaiting = false;
+
+
 
 
     public Game(String theme, String difficulty, String player1Name, String player2Name) {
@@ -101,7 +104,6 @@ public class Game {
         resizeBoard();
         gameStage.widthProperty().addListener((observable, oldValue, newValue) -> resizeBoard());
         gameStage.heightProperty().addListener((observable, oldValue, newValue) -> resizeBoard());
-
 
 
     }
@@ -201,10 +203,13 @@ public class Game {
     }
 
     private void onCardClicked(Card clickedCard) {
+        if (clickedCard.isMatched() || isWaiting) { // Check if the clicked card is already matched or if the game is waiting
+            return; // If it is, just return and do nothing
+        }
+
         if (selectedCard == null) {
             selectedCard = clickedCard;
             clickedCard.flip();
-            scoreboard.updateScores(); // Ajoutez cette ligne pour mettre à jour les scores
 
         } else if (selectedCard != clickedCard) {
             clickedCard.flip();
@@ -212,26 +217,33 @@ public class Game {
                 currentPlayer.addPoint();
                 selectedCard.setMatched(true);
                 clickedCard.setMatched(true);
+                scoreboard.updateScores(); // Update the scores
                 checkIfGameOver();
+                selectedCard = null;
             } else {
-                // Temporisez avant de retourner les cartes
-                PauseTransition pause = new PauseTransition(Duration.seconds(1));
+                isWaiting = true; // Set the flag to lock user interactions
+
+                // Delay before flipping the cards back
+                PauseTransition pause = new PauseTransition(Duration.seconds(0.5));
                 pause.setOnFinished(event -> {
                     if (this.selectedCard != null) {
                         this.selectedCard.flip();
                     }
-//                    selectedCard.flip();
                     clickedCard.flip();
-                });
-                pause.play();
+                    isWaiting = false; // Reset the flag to unlock user interactions
+                    selectedCard = null;
 
-                // Changez de joueur
-                currentPlayer = (currentPlayer == player1) ? player2 : player1;
-                currentPlayerLabel.setText("Current Player: " + currentPlayer.getName()); // Update the label text
+                    // Switch player
+                    currentPlayer = (currentPlayer == player1) ? player2 : player1;
+                    currentPlayerLabel.setText("Current Player: " + currentPlayer.getName()); // Update the label text
+                });
+
+                pause.play();
             }
-            selectedCard = null;
         }
     }
+
+
 
     private void checkIfGameOver() {
         boolean allCardsMatched = cards.stream().allMatch(Card::isMatched);
