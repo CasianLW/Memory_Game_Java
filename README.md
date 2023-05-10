@@ -11,3 +11,7 @@
 6. Si t'as utilisé memory_game mets toutes tes classes la bas et travaille dans ce fichier, tu peux t'en passer du 3 4 5)
 
 ### Partie 2 : Dev
+1. Commencer par configurer et créer le main/mainController et le main.fxml pour afficher la fenetre de jeu (avec modes de jeu, theme & noms players)
+2. Tester la table de jeu 'run'
+3. Créer les classes les plus simples 'Players' & 'Scoreboard'
+4. 
