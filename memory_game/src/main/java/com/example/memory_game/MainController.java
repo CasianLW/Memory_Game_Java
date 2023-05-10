@@ -26,7 +26,9 @@ public class MainController {
         // Désactivez le bouton "Start Game" si les noms des joueurs sont vides
         startGameButton.disableProperty().bind(
                 player1NameTextField.textProperty().isEmpty().or(
-                        player2NameTextField.textProperty().isEmpty())
+                        player2NameTextField.textProperty().isEmpty()).or(
+                        themeComboBox.valueProperty().isNull()).or(
+                        difficultyComboBox.valueProperty().isNull())
         );
     }
 
