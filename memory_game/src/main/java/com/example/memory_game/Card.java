@@ -12,15 +12,18 @@ public class Card extends StackPane {
     private boolean isFlipped;
     private boolean isMatched;
 
-    public Card(Image faceImage, Image backImage) {
+    public Card(Image faceImage, Image backImage, double cardWidth, double cardHeight) {
         this.faceImage = faceImage;
         this.backImage = backImage;
         this.imageView = new ImageView(backImage);
         this.isFlipped = false;
         this.isMatched = false;
 
+        imageView.setFitWidth(cardWidth);
+        imageView.setFitHeight(cardHeight);
+
         this.getChildren().add(imageView);
-        this.setPrefSize(100, 100);
+        this.setPrefSize(cardWidth, cardHeight);
     }
 
     public void flip() {
@@ -44,6 +47,13 @@ public class Card extends StackPane {
 
     public void setMatched(boolean matched) {
         isMatched = matched;
+    }
+    public void setCardWidth(double width) {
+        imageView.setFitWidth(width);
+    }
+
+    public void setCardHeight(double height) {
+        imageView.setFitHeight(height);
     }
 
 

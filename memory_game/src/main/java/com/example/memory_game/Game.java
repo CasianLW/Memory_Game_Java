@@ -1,6 +1,7 @@
 package com.example.memory_game;
 
 import javafx.application.Platform;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.util.Duration;
 import javafx.animation.PauseTransition;
@@ -30,6 +31,8 @@ public class Game {
     private Player currentPlayer;
     private List<Card> cards;
     private Card selectedCard;
+    private double cardWidth;
+    private double cardHeight;
 
     public Game(String theme, String difficulty, String player1Name, String player2Name) {
         player1 = new Player(player1Name);
@@ -60,12 +63,40 @@ public class Game {
         gameStage.setTitle("Memory Game");
         gameStage.setFullScreen(false); // Désactiver le mode plein écran
 //        gameStage.initModality(Modality.APPLICATION_MODAL);
+        switch (difficulty) {
+            case "Easy":
+                cardWidth = 200;
+                cardHeight = 200;
+                break;
+            case "Medium":
+                cardWidth = 150;
+                cardHeight = 150;
+                break;
+            case "Hard":
+                cardWidth = 100;
+                cardHeight = 100;
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid difficulty: " + difficulty);
+        }
+
+        board.prefWidthProperty().bind(gameScene.widthProperty().subtract(20));
+        board.prefHeightProperty().bind(gameScene.heightProperty().subtract(20));
+        board.maxWidthProperty().bind(gameScene.widthProperty().subtract(20));
+        board.maxHeightProperty().bind(gameScene.heightProperty().subtract(20));
+        resizeBoard();
+        gameStage.widthProperty().addListener((observable, oldValue, newValue) -> resizeBoard());
+        gameStage.heightProperty().addListener((observable, oldValue, newValue) -> resizeBoard());
+
+
 
     }
 
     public void start() {
         gameStage.show();
+
     }
+
 
     private List<Card> createCards(String theme, String difficulty) {
         List<Card> cards = new ArrayList<>();
@@ -96,8 +127,12 @@ public class Game {
 //            Image cardFaceImage = new Image("src/main/resources/cardImages/" + theme + i + ".png");
             Image cardBackImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/cardImages/" + theme + "/card_back.png")));
 
-            Card card1 = new Card(cardFaceImage, cardBackImage);
-            Card card2 = new Card(cardFaceImage, cardBackImage);
+//            Card card1 = new Card(cardFaceImage, cardBackImage);
+//            Card card2 = new Card(cardFaceImage, cardBackImage);
+
+            Card card1 = new Card(cardFaceImage, cardBackImage, cardWidth, cardHeight);
+            Card card2 = new Card(cardFaceImage, cardBackImage, cardWidth, cardHeight);
+            // ...
 
             card1.setOnMouseClicked(event -> onCardClicked(card1));
             card2.setOnMouseClicked(event -> onCardClicked(card2));
@@ -117,6 +152,12 @@ public class Game {
         board.setHgap(5);
         board.setVgap(5);
         board.setAlignment(Pos.CENTER);
+
+//        board.setMaxWidth(80);
+//        board.setMaxHeight(60);
+
+
+
 
         int rows, cols;
         switch (difficulty) {
@@ -198,4 +239,31 @@ public class Game {
             gameStage.close();
         }
     }
+    private void resizeBoard() {
+
+
+        double sceneWidth = gameStage.getScene().getWidth();
+        double sceneHeight = gameStage.getScene().getHeight();
+
+        double boardWidth = sceneWidth - 20;
+        double boardHeight = sceneHeight - 20;
+
+        double cardMaxWidth = boardWidth / board.getColumnCount() - 5;
+        double cardMaxHeight = boardHeight / board.getRowCount() - 5;
+
+        cardWidth = Math.min(cardMaxWidth, cardWidth);
+        cardHeight = Math.min(cardMaxHeight, cardHeight);
+
+        for (Node node : board.getChildren()) {
+            Card card = (Card) node;
+
+            card.setCardWidth(cardWidth);
+            card.setCardHeight(cardHeight);
+        }
+        board.maxWidthProperty().unbind();
+        board.maxHeightProperty().unbind();
+        board.setMaxWidth(boardWidth);
+        board.setMaxHeight(boardHeight);
+    }
+
 }
