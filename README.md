@@ -13,5 +13,4 @@
 ### Partie 2 : Dev
 1. Commencer par configurer et créer le main/mainController et le main.fxml pour afficher la fenetre de jeu (avec modes de jeu, theme & noms players)
 2. Tester la table de jeu 'run'
-3. Créer les classes les plus simples 'Players' & 'Scoreboard'
-4. 
+3. Créer les classes les plus simples 'Players' , 'Scoreboard' et 'Card'
