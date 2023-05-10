@@ -8,6 +8,10 @@ import javafx.animation.PauseTransition;
 
 import javafx.stage.Modality;
 
+import javafx.scene.image.Image;
+import javafx.stage.Stage;
+
+
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -33,11 +37,15 @@ public class Game {
     private Card selectedCard;
     private double cardWidth;
     private double cardHeight;
+    private Scoreboard scoreboard;
+
 
     public Game(String theme, String difficulty, String player1Name, String player2Name) {
         player1 = new Player(player1Name);
         player2 = new Player(player2Name);
         currentPlayer = player1;
+
+
         selectedCard = null;
 
         // Créez les cartes en fonction du thème et de la difficulté choisie
@@ -52,7 +60,10 @@ public class Game {
         root.setPadding(new Insets(10));
         root.setAlignment(Pos.CENTER);
         Label currentPlayerLabel = new Label("Current Player: " + currentPlayer.getName());
-        root.getChildren().addAll(currentPlayerLabel, board);
+//        root.getChildren().addAll(currentPlayerLabel, board);
+        //        partie scoreoard
+        scoreboard = new Scoreboard(player1, player2);
+        root.getChildren().addAll(scoreboard, currentPlayerLabel, board);
 
 //        Scene gameScene = new Scene(root);
         Scene gameScene = new Scene(root, 1600, 800); // Changer 800 et 600 par les dimensions souhaitées
@@ -157,8 +168,6 @@ public class Game {
 //        board.setMaxHeight(60);
 
 
-
-
         int rows, cols;
         switch (difficulty) {
             case "Easy":
@@ -192,6 +201,8 @@ public class Game {
         if (selectedCard == null) {
             selectedCard = clickedCard;
             clickedCard.flip();
+            scoreboard.updateScores(); // Ajoutez cette ligne pour mettre à jour les scores
+
         } else if (selectedCard != clickedCard) {
             clickedCard.flip();
             if (selectedCard.isMatch(clickedCard)) {
