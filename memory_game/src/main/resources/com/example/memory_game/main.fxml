@@ -9,8 +9,8 @@
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.example.memory_game.MainController">
-    <ComboBox fx:id="themeComboBox" layoutX="20" layoutY="20" />
-    <ComboBox fx:id="difficultyComboBox" layoutX="20" layoutY="60" />
+    <ComboBox fx:id="themeComboBox" layoutX="20" layoutY="20" promptText="Select a theme" />
+    <ComboBox fx:id="difficultyComboBox" layoutX="20" layoutY="60" promptText="Select a difficulty level"/>
     <TextField fx:id="player1NameTextField" layoutX="20" layoutY="100" promptText="Player 1 Name" />
     <TextField fx:id="player2NameTextField" layoutX="20" layoutY="140" promptText="Player 2 Name" />
     <Button fx:id="startGameButton" layoutX="20" layoutY="180" text="Start Game" onAction="#onStartGameButtonClicked" />
