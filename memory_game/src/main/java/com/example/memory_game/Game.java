@@ -39,6 +39,9 @@ public class Game {
     private double cardHeight;
     private Scoreboard scoreboard;
 
+    private Label currentPlayerLabel;
+
+
 
     public Game(String theme, String difficulty, String player1Name, String player2Name) {
         player1 = new Player(player1Name);
@@ -59,7 +62,7 @@ public class Game {
         root.setSpacing(10);
         root.setPadding(new Insets(10));
         root.setAlignment(Pos.CENTER);
-        Label currentPlayerLabel = new Label("Current Player: " + currentPlayer.getName());
+        currentPlayerLabel = new Label("Current Player: " + currentPlayer.getName());
 //        root.getChildren().addAll(currentPlayerLabel, board);
         //        partie scoreoard
         scoreboard = new Scoreboard(player1, player2);
@@ -224,6 +227,7 @@ public class Game {
 
                 // Changez de joueur
                 currentPlayer = (currentPlayer == player1) ? player2 : player1;
+                currentPlayerLabel.setText("Current Player: " + currentPlayer.getName()); // Update the label text
             }
             selectedCard = null;
         }
