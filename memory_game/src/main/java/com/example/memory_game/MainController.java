@@ -20,7 +20,7 @@ public class MainController {
     @FXML
     public void initialize() {
         // Ajoutez les thèmes et les difficultés à leurs ComboBox respectives
-        themeComboBox.getItems().addAll("StarWars", "Theme 2", "Theme 3");
+        themeComboBox.getItems().addAll("StarWars", "Rappers", "Cars");
         difficultyComboBox.getItems().addAll("Easy", "Medium", "Hard");
 
         // Désactivez le bouton "Start Game" si les noms des joueurs sont vides
